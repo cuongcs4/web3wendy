@@ -99,11 +99,10 @@
             font-size: 0.7rem;
             text-transform: uppercase;
             color: var(--color-text);
-            background: transparent; /* No fill */
+            background: transparent;
             margin: 0 0.5rem 0.5rem 0;
         }
 
-        /* Link hover underline animation */
         a {
             color: var(--color-accent);
             text-decoration: none;
@@ -140,7 +139,6 @@
             border-top: 1px solid var(--color-border);
         }
 
-        /* Header requires no top border */
         header.hero {
             padding: 6rem 0 4rem 0;
             border-top: none;
@@ -158,40 +156,6 @@
             }
         }
 
-        .hero-contact {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        /* Timeline configuration (Using the only allowed border-radius) */
-        .timeline {
-            border-left: 1px solid var(--color-border);
-            padding-left: 1.5rem;
-            margin-left: 0.25rem;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-        }
-
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: -1.8rem; /* Align to the border */
-            top: 0.35rem;
-            width: 0.5rem;
-            height: 0.5rem;
-            background-color: var(--color-bg);
-            border: 1px solid var(--color-muted);
-            border-radius: 50%; /* Explicitly allowed in guidelines */
-        }
-
         .flex-between {
             display: flex;
             justify-content: space-between;
@@ -199,7 +163,7 @@
             flex-wrap: wrap;
         }
 
-        /* === New Components: Nav, Avatar, Socials === */
+        /* === Nav, Avatar, Socials === */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -264,6 +228,8 @@
             border: 2px solid var(--color-accent);
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            background-color: var(--color-border);
         }
 
         .hero-image-container img {
@@ -271,6 +237,7 @@
             aspect-ratio: 1 / 1.15;
             object-fit: cover;
             display: block;
+            transition: opacity 0.5s ease; /* Fade effect for swap */
         }
 
         .hero-image-caption {
@@ -317,6 +284,195 @@
             fill: currentColor;
         }
 
+        /* === Experience Timeline (New Layout) === */
+        .exp-section {
+            padding-top: 4rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .exp-header-title {
+            display: inline-block;
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 0.25rem;
+            margin-bottom: 3rem;
+        }
+
+        .exp-labels {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 1rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .exp-labels::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            width: 1px;
+            height: 5px;
+            background-color: var(--color-border);
+        }
+
+        .exp-label-left {
+            width: 50%;
+            text-align: right;
+            padding-right: 1.5rem;
+        }
+
+        .exp-label-right {
+            width: 50%;
+            text-align: left;
+            padding-left: 1.5rem;
+        }
+
+        .exp-timeline {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .exp-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: var(--color-border);
+            transform: translateX(-50%);
+        }
+
+        .exp-item {
+            position: relative;
+            width: 50%;
+        }
+
+        .exp-item.left {
+            left: 0;
+            padding-right: 2rem;
+            text-align: right;
+        }
+
+        .exp-item.right {
+            left: 50%;
+            padding-left: 2rem;
+            text-align: left;
+        }
+
+        .exp-dot {
+            position: absolute;
+            top: 0.25rem;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background-color: var(--color-bg);
+            border: 2px solid var(--color-border);
+            z-index: 2;
+        }
+
+        .exp-item.left .exp-dot {
+            right: -6px;
+        }
+
+        .exp-item.right .exp-dot {
+            left: -5px;
+        }
+
+        .exp-dot.active {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .exp-date {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--color-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .exp-title {
+            font-family: 'Atkinson Hyperlegible Mono', monospace;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .exp-item.left .exp-title {
+            justify-content: flex-end;
+        }
+
+        .exp-company {
+            font-size: 0.9rem;
+            color: var(--color-text);
+            margin-bottom: 0.75rem;
+        }
+
+        .exp-details-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--color-muted);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+
+        .exp-details-btn:hover {
+            color: var(--color-text);
+        }
+
+        .exp-details-content {
+            display: none;
+            font-size: 0.9rem;
+            margin-top: 0.75rem;
+            color: var(--color-text);
+            line-height: 1.5;
+        }
+
+        .exp-details-content.show {
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .exp-labels {
+                display: none;
+            }
+            .exp-timeline::before {
+                left: 0;
+                transform: none;
+            }
+            .exp-item {
+                width: 100%;
+            }
+            .exp-item.left, .exp-item.right {
+                left: 0;
+                padding-left: 1.5rem;
+                padding-right: 0;
+                text-align: left;
+            }
+            .exp-item.left .exp-dot, .exp-item.right .exp-dot {
+                left: -5px;
+                right: auto;
+            }
+            .exp-item.left .exp-title {
+                justify-content: flex-start;
+            }
+        }
+
         /* === Animations === */
         .reveal {
             opacity: 0;
@@ -341,6 +497,9 @@
             a.animated-link:hover {
                 text-decoration: underline;
             }
+            .hero-image-container img {
+                transition: none;
+            }
         }
     </style>
 </head>
@@ -364,7 +523,7 @@
             <div class="hero-layout">
                 <!-- Left Column: Image -->
                 <div class="reveal hero-image-container">
-                    <img src="IMG_5188.jpg" alt="Wendy America" />
+                    <img id="avatar-img" src="IMG_5188.jpg" alt="Wendy America" />
                     <div class="hero-image-caption">Web3 Growth Hacker</div>
                 </div>
 
@@ -408,70 +567,86 @@
         </header>
 
         <!-- EXPERIENCE SECTION -->
-        <section id="experience">
-            <div class="grid-layout stagger-parent">
+        <section id="experience" class="exp-section">
+            <div class="stagger-parent">
                 <div class="reveal">
-                    <h2>Experience</h2>
+                    <h2 class="exp-header-title">Experience</h2>
                 </div>
                 
-                <div class="timeline">
-                    <!-- Job 1 -->
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="flex-between">
-                            <h3>Arcadia</h3>
-                            <span class="meta" style="margin: 0;">Aug 2025 — Present</span>
-                        </div>
-                        <span class="meta" style="margin-top: 0.25rem;">Executive Assistant</span>
+                <div class="reveal">
+                    <div class="exp-labels">
+                        <div class="exp-label-left">ACADEMIC</div>
+                        <div class="exp-label-right">INDUSTRY</div>
                     </div>
 
-                    <!-- Job 2 -->
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="flex-between">
-                            <h3>Sonic Labs</h3>
-                            <span class="meta" style="margin: 0;">Dec 2024 — Mar 2025</span>
+                    <div class="exp-timeline">
+                        <!-- Role 1 -->
+                        <div class="exp-item right reveal">
+                            <div class="exp-dot active"></div>
+                            <div class="exp-date">Aug 2025 — Present</div>
+                            <div class="exp-title">🌐 Executive Assistant</div>
+                            <div class="exp-company">Arcadia</div>
+                            <button class="exp-details-btn" aria-expanded="false">+ details</button>
+                            <div class="exp-details-content">
+                                Supporting executive operations, managing communications, and aiding in strategic planning.
+                            </div>
                         </div>
-                        <span class="meta" style="margin-top: 0.25rem;">Outreach Specialist</span>
-                    </div>
 
-                    <!-- Job 3 -->
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="flex-between">
-                            <h3>Makina (prev Pulse)</h3>
-                            <span class="meta" style="margin: 0;">2024 — 2025</span>
+                        <!-- Role 2 -->
+                        <div class="exp-item right reveal">
+                            <div class="exp-dot active"></div>
+                            <div class="exp-date">Dec 2024 — Mar 2025</div>
+                            <div class="exp-title">🌐 Outreach Specialist</div>
+                            <div class="exp-company">Sonic Labs</div>
+                            <button class="exp-details-btn" aria-expanded="false">+ details</button>
+                            <div class="exp-details-content">
+                                Executed targeted outreach strategies, fostered partner relationships, and supported community ecosystem expansion.
+                            </div>
                         </div>
-                        <span class="meta" style="margin-top: 0.25rem;">Community Manager</span>
-                        <p>
-                            Led customer support and community growth across email, Discord, and Telegram for health wearable launch. Managed beta programs, shipping logistics, and product launches including rebrand.
-                        </p>
-                    </div>
 
-                    <!-- Job 2 -->
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="flex-between">
-                            <h3>Hawkfi (prev Hawksight)</h3>
-                            <span class="meta" style="margin: 0;">2021 — 2024</span>
+                        <!-- Role 3 -->
+                        <div class="exp-item right reveal">
+                            <div class="exp-dot"></div>
+                            <div class="exp-date">2024 — 2025</div>
+                            <div class="exp-title">🌐 Community Manager</div>
+                            <div class="exp-company">Makina (prev Pulse)</div>
+                            <button class="exp-details-btn" aria-expanded="false">+ details</button>
+                            <div class="exp-details-content">
+                                Led customer support and community growth across email, Discord, and Telegram for health wearable launch. Managed beta programs, shipping logistics, and product launches including rebrand.
+                            </div>
                         </div>
-                        <span class="meta" style="margin-top: 0.25rem;">Growth Hacker / Community Specialist</span>
-                        <p>
-                            Partnered with DeFi protocols, DEXs, and DAOs to boost visibility and onboard users to Hawkfi's automation tools.
-                        </p>
-                    </div>
 
-                    <!-- Job 3 -->
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="flex-between">
-                            <h3>Other Web3 Projects</h3>
-                            <span class="meta" style="margin: 0;">2020 — 2022</span>
+                        <!-- Role 4 -->
+                        <div class="exp-item right reveal">
+                            <div class="exp-dot"></div>
+                            <div class="exp-date">2021 — 2024</div>
+                            <div class="exp-title">🌐 Growth Hacker / Community Specialist</div>
+                            <div class="exp-company">Hawkfi (prev Hawksight)</div>
+                            <button class="exp-details-btn" aria-expanded="false">+ details</button>
+                            <div class="exp-details-content">
+                                Partnered with DeFi protocols, DEXs, and DAOs to boost visibility and onboard users to Hawkfi's automation tools.
+                            </div>
                         </div>
-                        <span class="meta" style="margin-top: 0.25rem;">Community Manager / Moderator</span>
-                        <p>
-                            Managed communities and fostered engagement across various Web3 platforms including <strong>Gennix</strong>, <strong>SeeMe</strong>, <strong>Knockers</strong>, <strong>Exclusible</strong>, <strong>Senoa</strong>, and <strong>Cancoin</strong>.
-                        </p>
+
+                        <!-- Role 5 -->
+                        <div class="exp-item right reveal">
+                            <div class="exp-dot"></div>
+                            <div class="exp-date">2020 — 2022</div>
+                            <div class="exp-title">🌐 Community Manager / Moderator</div>
+                            <div class="exp-company">Other Web3 Projects</div>
+                            <button class="exp-details-btn" aria-expanded="false">+ details</button>
+                            <div class="exp-details-content">
+                                Managed communities and fostered engagement across various Web3 platforms including Gennix, SeeMe, Knockers, Exclusible, Senoa, and Cancoin.
+                            </div>
+                        </div>
+                        
+                        <!-- Education mapped to Academic Side -->
+                        <div class="exp-item left reveal">
+                            <div class="exp-dot"></div>
+                            <div class="exp-date">2014 — 2018</div>
+                            <div class="exp-title">🇵🇭 BA in Communications</div>
+                            <div class="exp-company">STI College - Caloocan</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -487,6 +662,7 @@
                     <span class="tag">Business Development</span>
                     <span class="tag">Content Creation</span>
                     <span class="tag">Community Growth</span>
+                    <span class="tag">Graphic Design</span>
                     <span class="tag">DeFi Knowledge</span>
                     <span class="tag">Crisis Management</span>
                     <span class="tag">Cross-Platform Engagement</span>
@@ -495,7 +671,7 @@
         </section>
 
         <!-- LANGUAGES SECTION -->
-        <section id="languages">
+        <section id="languages" style="border-bottom: 1px solid var(--color-border); margin-bottom: 4rem;">
             <div class="grid-layout stagger-parent">
                 <div class="reveal">
                     <h2>Languages</h2>
@@ -507,25 +683,9 @@
             </div>
         </section>
 
-        <!-- EDUCATION SECTION -->
-        <section id="education" style="border-bottom: 1px solid var(--color-border); margin-bottom: 4rem;">
-            <div class="grid-layout stagger-parent">
-                <div class="reveal">
-                    <h2>Education</h2>
-                </div>
-                <div class="reveal">
-                    <div class="flex-between">
-                        <h3>STI College - Caloocan</h3>
-                        <span class="meta" style="margin: 0;">2014 — 2018</span>
-                    </div>
-                    <span class="meta" style="margin-top: 0.25rem;">Bachelor of Arts in Communications</span>
-                </div>
-            </div>
-        </section>
-
     </div>
 
-    <!-- JavaScript for Scroll Reveals -->
+    <!-- JavaScript for Interactions -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Theme Toggle Logic
@@ -547,11 +707,41 @@
                 }
             });
 
-            // Check for reduced motion preference
+            // Expandable Details Logic
+            document.querySelectorAll('.exp-details-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const content = e.target.nextElementSibling;
+                    const isExpanded = content.classList.contains('show');
+                    
+                    content.classList.toggle('show');
+                    e.target.setAttribute('aria-expanded', !isExpanded);
+                    e.target.textContent = isExpanded ? '+ details' : '- details';
+                });
+            });
+
+            // Avatar Swapping Logic
+            const avatarImg = document.getElementById('avatar-img');
+            if (avatarImg) {
+                const img1 = 'IMG_5188.jpg';
+                const img2 = 'image.png';
+                
+                setInterval(() => {
+                    // Start fade out
+                    avatarImg.style.opacity = '0';
+                    
+                    // Wait for fade transition, then swap source and fade back in
+                    setTimeout(() => {
+                        const currentSrc = avatarImg.src;
+                        avatarImg.src = currentSrc.includes(img1) ? img2 : img1;
+                        avatarImg.style.opacity = '1';
+                    }, 500); // 500ms matches the CSS transition time
+                }, 5000); // Trigger every 5 seconds
+            }
+
+            // Scroll Reveal Logic
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             if (!prefersReducedMotion) {
-                // Setup Intersection Observer
                 const observerOptions = {
                     root: null,
                     rootMargin: '0px',
@@ -562,23 +752,19 @@
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('visible');
-                            // Unobserve to trigger animation only once
                             observer.unobserve(entry.target);
                         }
                     });
                 }, observerOptions);
 
-                // Handle stagger logic locally within parent sections
                 document.querySelectorAll('.stagger-parent').forEach(parent => {
                     const children = parent.querySelectorAll('.reveal');
                     children.forEach((child, index) => {
-                        // Apply stagger delay inline dynamically 
                         child.style.transitionDelay = `${index * 0.1}s`;
                         observer.observe(child);
                     });
                 });
             } else {
-                // Instantly make elements visible if user prefers reduced motion
                 document.querySelectorAll('.reveal').forEach(el => {
                     el.classList.add('visible');
                 });
