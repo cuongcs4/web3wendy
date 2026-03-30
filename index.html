@@ -220,39 +220,101 @@
             border: 1px solid var(--color-border);
             color: var(--color-text);
             cursor: pointer;
-            padding: 0.25rem 0.5rem;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8rem;
-            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            transition: border-color 0.2s ease;
         }
 
         .theme-btn:hover {
             border-color: var(--color-muted);
         }
+        
+        .theme-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
 
-        .avatar {
-            width: 120px;
-            height: 120px;
+        .theme-btn .moon-icon { display: none; }
+        :root[data-theme="dark"] .theme-btn .moon-icon { display: block; }
+        :root[data-theme="dark"] .theme-btn .sun-icon { display: none; }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        @media (min-width: 640px) {
+            .hero-layout {
+                grid-template-columns: 240px 1fr;
+            }
+        }
+
+        .hero-image-container {
+            border: 2px solid var(--color-accent);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            aspect-ratio: 1 / 1.15;
             object-fit: cover;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--color-border);
+            display: block;
+        }
+
+        .hero-image-caption {
+            background-color: var(--color-accent);
+            color: var(--color-bg);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            padding: 0.4rem;
+            text-align: center;
+            letter-spacing: 0.05em;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
             margin-top: 1.5rem;
         }
 
-        .social-icon {
-            color: var(--color-text);
-            width: 20px;
-            height: 20px;
-            transition: color 0.2s ease;
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid var(--color-border);
+            padding: 0.4rem 0.75rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--color-muted);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            background: transparent;
         }
 
-        .social-icon:hover {
-            color: var(--color-accent);
+        .social-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        .social-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
         /* === Animations === */
@@ -290,40 +352,58 @@
             <a href="#experience" class="animated-link">Experience</a>
             <a href="#skills" class="animated-link">Skills</a>
         </div>
-        <button id="theme-toggle" class="theme-btn">Dark Mode</button>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+            <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
     </nav>
 
     <div class="container">
         <!-- HERO / HEADER -->
         <header class="hero stagger-parent">
-            <img src="IMG_5188.jpg" alt="Wendy America" class="avatar reveal" />
-            <h1 class="reveal">Wendy America</h1>
-            <h3 class="reveal" style="margin-top: 0.5rem; color: var(--color-muted);">Web3 Growth Hacker</h3>
-            
-            <div class="reveal" style="margin-top: 2rem;">
-                <p>
-                    Community builder focused on strategic partnerships and sustainable growth. I specialize in building engaged communities and scaling them from startup to success. 
-                </p>
-                <p>
-                    5+ years of experience growing Web3 projects through marketing, community building, and partnerships. Skilled in social media growth, influencer collaborations, and user engagement.
-                </p>
-            </div>
+            <div class="hero-layout">
+                <!-- Left Column: Image -->
+                <div class="reveal hero-image-container">
+                    <img src="IMG_5188.jpg" alt="Wendy America" />
+                    <div class="hero-image-caption">Web3 Growth Hacker</div>
+                </div>
 
-            <div class="hero-contact reveal">
-                <a href="mailto:business.wendelamerica@gmail.com" class="animated-link">business.wendelamerica@gmail.com</a>
-                <a href="tel:+639616961429" class="animated-link">+63 961 696 1429</a>
-            </div>
+                <!-- Right Column: Info & Socials -->
+                <div>
+                    <h1 class="reveal">Wendy America</h1>
+                    <div class="reveal" style="margin-top: 0.5rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--color-muted);">
+                        <span>🇵🇭</span>
+                        <span>Community Builder · Strategic Partnerships</span>
+                    </div>
+                    
+                    <div class="reveal" style="margin-top: 1.5rem;">
+                        <p style="font-weight: 500; color: var(--color-text);">
+                            Building engaged communities and scaling them from startup to success.
+                        </p>
+                        <p>
+                            With over 5 years of experience, I specialize in scaling Web3 projects through impactful marketing, influencer collaborations, and deep user engagement. Previously a Growth Hacker at <strong>Hawkfi</strong> and Community Manager at <strong>Makina</strong>.
+                        </p>
+                    </div>
 
-            <div class="social-links reveal">
-                <a href="https://x.com/onchainwendy" target="_blank" aria-label="X (Twitter)">
-                    <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-                <a href="https://www.linkedin.com/in/ma-wendel-america/" target="_blank" aria-label="LinkedIn">
-                    <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </a>
-                <a href="https://t.me/wendyarcadia" target="_blank" aria-label="Telegram">
-                    <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.666 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                </a>
+                    <div class="social-links reveal">
+                        <a href="mailto:business.wendelamerica@gmail.com" class="social-btn" aria-label="Email">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Email
+                        </a>
+                        <a href="https://x.com/onchainwendy" target="_blank" class="social-btn" aria-label="X (Twitter)">
+                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            X
+                        </a>
+                        <a href="https://www.linkedin.com/in/ma-wendel-america/" target="_blank" class="social-btn" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            LinkedIn
+                        </a>
+                        <a href="https://t.me/wendyarcadia" target="_blank" class="social-btn" aria-label="Telegram">
+                            <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.666 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                            Telegram
+                        </a>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -454,7 +534,6 @@
             
             if (currentTheme === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                themeBtn.textContent = 'Light Mode';
             }
 
             themeBtn.addEventListener('click', () => {
@@ -462,11 +541,9 @@
                 if (isDark) {
                     document.documentElement.removeAttribute('data-theme');
                     localStorage.setItem('theme', 'light');
-                    themeBtn.textContent = 'Dark Mode';
                 } else {
                     document.documentElement.setAttribute('data-theme', 'dark');
                     localStorage.setItem('theme', 'dark');
-                    themeBtn.textContent = 'Light Mode';
                 }
             });
 
