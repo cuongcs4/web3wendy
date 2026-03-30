@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wendy America — Web3 Growth Hacker</title>
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Exact typography scale fonts requested in design guidelines -->
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@600;700&family=IBM+Plex+Mono:wght@300;500&family=Inter:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+        /* === Color Palette === */
+        :root {
+            --color-bg: #FAFAFA;
+            --color-text: #1A1A1A;
+            --color-accent: #2563EB;
+            --color-muted: #6B7280;
+            --color-border: #E5E7EB;
+        }
+
+        :root[data-theme="dark"] {
+            --color-bg: #0A0A0A;
+            --color-text: #EBEBEB;
+            --color-accent: #60A5FA;
+            --color-muted: #9CA3AF;
+            --color-border: #2A2A2A;
+        }
+
+        /* === Base Reset & Styles === */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            /* Anti-Pattern Guard: No rounded corners globally */
+            border-radius: 0;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === Typography Scale === */
+        h1 {
+            font-family: 'Atkinson Hyperlegible Mono', monospace;
+            font-weight: 700;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-variant: small-caps;
+            text-shadow: 0 0 0.2px currentColor;
+            margin: 0 0 0.5rem 0;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-family: 'Atkinson Hyperlegible Mono', monospace;
+            font-weight: 600;
+            font-size: clamp(1rem, 2.5vw, 1.375rem);
+            font-variant: small-caps;
+            margin: 0 0 1.5rem 0;
+            color: var(--color-text);
+        }
+
+        h3 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 500;
+            font-size: 1rem;
+            margin: 0 0 0.25rem 0;
+            color: var(--color-text);
+        }
+
+        .meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 300;
+            font-size: 0.8rem;
+            color: var(--color-muted);
+            margin: 0 0 1rem 0;
+            display: block;
+        }
+
+        p {
+            margin: 0 0 1.5rem 0;
+        }
+
+        /* === Components === */
+        .tag {
+            display: inline-block;
+            border: 1px solid var(--color-border);
+            padding: 0.3rem 0.6rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--color-text);
+            background: transparent; /* No fill */
+            margin: 0 0.5rem 0.5rem 0;
+        }
+
+        /* Link hover underline animation */
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        a.animated-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--color-accent);
+            transition: width 0.25s ease;
+        }
+
+        a.animated-link:hover::after {
+            width: 100%;
+        }
+
+        /* === Layout === */
+        .container {
+            max-width: 52rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 4rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Header requires no top border */
+        header.hero {
+            padding: 6rem 0 4rem 0;
+            border-top: none;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid-layout {
+                grid-template-columns: 200px 1fr;
+            }
+        }
+
+        .hero-contact {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Timeline configuration (Using the only allowed border-radius) */
+        .timeline {
+            border-left: 1px solid var(--color-border);
+            padding-left: 1.5rem;
+            margin-left: 0.25rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -1.8rem; /* Align to the border */
+            top: 0.35rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-muted);
+            border-radius: 50%; /* Explicitly allowed in guidelines */
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        /* === New Components: Nav, Avatar, Socials === */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+            max-width: 52rem;
+            margin: 0 auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--color-muted);
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            color: var(--color-text);
+            width: 20px;
+            height: 20px;
+            transition: color 0.2s ease;
+        }
+
+        .social-icon:hover {
+            color: var(--color-accent);
+        }
+
+        /* === Animations === */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal.visible {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+            a.animated-link::after {
+                display: none;
+            }
+            a.animated-link:hover {
+                text-decoration: underline;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="#experience" class="animated-link">Experience</a>
+            <a href="#skills" class="animated-link">Skills</a>
+        </div>
+        <button id="theme-toggle" class="theme-btn">Dark Mode</button>
+    </nav>
+
+    <div class="container">
+        <!-- HERO / HEADER -->
+        <header class="hero stagger-parent">
+            <img src="IMG_5188.jpg" alt="Wendy America" class="avatar reveal" />
+            <h1 class="reveal">Wendy America</h1>
+            <h3 class="reveal" style="margin-top: 0.5rem; color: var(--color-muted);">Web3 Growth Hacker</h3>
+            
+            <div class="reveal" style="margin-top: 2rem;">
+                <p>
+                    Community builder focused on strategic partnerships and sustainable growth. I specialize in building engaged communities and scaling them from startup to success. 
+                </p>
+                <p>
+                    5+ years of experience growing Web3 projects through marketing, community building, and partnerships. Skilled in social media growth, influencer collaborations, and user engagement.
+                </p>
+            </div>
+
+            <div class="hero-contact reveal">
+                <a href="mailto:business.wendelamerica@gmail.com" class="animated-link">business.wendelamerica@gmail.com</a>
+                <a href="tel:+639616961429" class="animated-link">+63 961 696 1429</a>
+            </div>
+
+            <div class="social-links reveal">
+                <a href="https://x.com/onchainwendy" target="_blank" aria-label="X (Twitter)">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/ma-wendel-america/" target="_blank" aria-label="LinkedIn">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://t.me/wendyarcadia" target="_blank" aria-label="Telegram">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.666 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                </a>
+            </div>
+        </header>
+
+        <!-- EXPERIENCE SECTION -->
+        <section id="experience">
+            <div class="grid-layout stagger-parent">
+                <div class="reveal">
+                    <h2>Experience</h2>
+                </div>
+                
+                <div class="timeline">
+                    <!-- Job 1 -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="flex-between">
+                            <h3>Arcadia</h3>
+                            <span class="meta" style="margin: 0;">Aug 2025 — Present</span>
+                        </div>
+                        <span class="meta" style="margin-top: 0.25rem;">Executive Assistant</span>
+                    </div>
+
+                    <!-- Job 2 -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="flex-between">
+                            <h3>Sonic Labs</h3>
+                            <span class="meta" style="margin: 0;">Dec 2024 — Mar 2025</span>
+                        </div>
+                        <span class="meta" style="margin-top: 0.25rem;">Outreach Specialist</span>
+                    </div>
+
+                    <!-- Job 3 -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="flex-between">
+                            <h3>Makina (prev Pulse)</h3>
+                            <span class="meta" style="margin: 0;">2024 — 2025</span>
+                        </div>
+                        <span class="meta" style="margin-top: 0.25rem;">Community Manager</span>
+                        <p>
+                            Led customer support and community growth across email, Discord, and Telegram for health wearable launch. Managed beta programs, shipping logistics, and product launches including rebrand.
+                        </p>
+                    </div>
+
+                    <!-- Job 2 -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="flex-between">
+                            <h3>Hawkfi (prev Hawksight)</h3>
+                            <span class="meta" style="margin: 0;">2021 — 2024</span>
+                        </div>
+                        <span class="meta" style="margin-top: 0.25rem;">Growth Hacker / Community Specialist</span>
+                        <p>
+                            Partnered with DeFi protocols, DEXs, and DAOs to boost visibility and onboard users to Hawkfi's automation tools.
+                        </p>
+                    </div>
+
+                    <!-- Job 3 -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="flex-between">
+                            <h3>Other Web3 Projects</h3>
+                            <span class="meta" style="margin: 0;">2020 — 2022</span>
+                        </div>
+                        <span class="meta" style="margin-top: 0.25rem;">Community Manager / Moderator</span>
+                        <p>
+                            Managed communities and fostered engagement across various Web3 platforms including <strong>Gennix</strong>, <strong>SeeMe</strong>, <strong>Knockers</strong>, <strong>Exclusible</strong>, <strong>Senoa</strong>, and <strong>Cancoin</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills">
+            <div class="grid-layout stagger-parent">
+                <div class="reveal">
+                    <h2>Skills</h2>
+                </div>
+                <div class="reveal">
+                    <span class="tag">Business Development</span>
+                    <span class="tag">Content Creation</span>
+                    <span class="tag">Community Growth</span>
+                    <span class="tag">DeFi Knowledge</span>
+                    <span class="tag">Crisis Management</span>
+                    <span class="tag">Cross-Platform Engagement</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- LANGUAGES SECTION -->
+        <section id="languages">
+            <div class="grid-layout stagger-parent">
+                <div class="reveal">
+                    <h2>Languages</h2>
+                </div>
+                <div class="reveal">
+                    <span class="tag">English</span>
+                    <span class="tag">Filipino</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION SECTION -->
+        <section id="education" style="border-bottom: 1px solid var(--color-border); margin-bottom: 4rem;">
+            <div class="grid-layout stagger-parent">
+                <div class="reveal">
+                    <h2>Education</h2>
+                </div>
+                <div class="reveal">
+                    <div class="flex-between">
+                        <h3>STI College - Caloocan</h3>
+                        <span class="meta" style="margin: 0;">2014 — 2018</span>
+                    </div>
+                    <span class="meta" style="margin-top: 0.25rem;">Bachelor of Arts in Communications</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JavaScript for Scroll Reveals -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme Toggle Logic
+            const themeBtn = document.getElementById('theme-toggle');
+            const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeBtn.textContent = 'Light Mode';
+            }
+
+            themeBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                if (isDark) {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                    themeBtn.textContent = 'Dark Mode';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeBtn.textContent = 'Light Mode';
+                }
+            });
+
+            // Check for reduced motion preference
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (!prefersReducedMotion) {
+                // Setup Intersection Observer
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.15
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            // Unobserve to trigger animation only once
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                // Handle stagger logic locally within parent sections
+                document.querySelectorAll('.stagger-parent').forEach(parent => {
+                    const children = parent.querySelectorAll('.reveal');
+                    children.forEach((child, index) => {
+                        // Apply stagger delay inline dynamically 
+                        child.style.transitionDelay = `${index * 0.1}s`;
+                        observer.observe(child);
+                    });
+                });
+            } else {
+                // Instantly make elements visible if user prefers reduced motion
+                document.querySelectorAll('.reveal').forEach(el => {
+                    el.classList.add('visible');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
