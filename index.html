@@ -414,6 +414,14 @@
             justify-content: flex-end;
         }
 
+        .company-logo {
+            width: 1.25rem;
+            height: 1.25rem;
+            object-fit: cover;
+            border: 1px solid var(--color-border);
+            display: block;
+        }
+
         .exp-company {
             font-size: 0.9rem;
             color: var(--color-text);
@@ -523,7 +531,7 @@
             <div class="hero-layout">
                 <!-- Left Column: Image -->
                 <div class="reveal hero-image-container">
-                    <img id="avatar-img" src="IMG_5188.jpg" alt="Wendy America" />
+                    <img id="avatar-img" src="elements/IMG_5188.jpg" alt="Wendy America" />
                     <div class="hero-image-caption">Web3 Growth Hacker</div>
                 </div>
 
@@ -584,7 +592,7 @@
                         <div class="exp-item right reveal">
                             <div class="exp-dot active"></div>
                             <div class="exp-date">Aug 2025 — Present</div>
-                            <div class="exp-title">🌐 Executive Assistant</div>
+                            <div class="exp-title"><img src="elements/arcadia.jpg" alt="Arcadia" class="company-logo"> Executive Assistant</div>
                             <div class="exp-company">Arcadia</div>
                             <button class="exp-details-btn" aria-expanded="false">+ details</button>
                             <div class="exp-details-content">
@@ -596,19 +604,19 @@
                         <div class="exp-item right reveal">
                             <div class="exp-dot active"></div>
                             <div class="exp-date">Dec 2024 — Mar 2025</div>
-                            <div class="exp-title">🌐 Outreach Specialist</div>
+                            <div class="exp-title"><img src="elements/sonic.jpg" alt="Sonic Labs" class="company-logo"> Outreach Specialist</div>
                             <div class="exp-company">Sonic Labs</div>
                             <button class="exp-details-btn" aria-expanded="false">+ details</button>
                             <div class="exp-details-content">
                                 Executed targeted outreach strategies, fostered partner relationships, and supported community ecosystem expansion.
                             </div>
                         </div>
-
+    
                         <!-- Role 3 -->
                         <div class="exp-item right reveal">
                             <div class="exp-dot"></div>
                             <div class="exp-date">2024 — 2025</div>
-                            <div class="exp-title">🌐 Community Manager</div>
+                            <div class="exp-title"><img src="elements/makina.png" alt="Makina" class="company-logo"> Community Manager</div>
                             <div class="exp-company">Makina (prev Pulse)</div>
                             <button class="exp-details-btn" aria-expanded="false">+ details</button>
                             <div class="exp-details-content">
@@ -620,7 +628,7 @@
                         <div class="exp-item right reveal">
                             <div class="exp-dot"></div>
                             <div class="exp-date">2021 — 2024</div>
-                            <div class="exp-title">🌐 Growth Hacker / Community Specialist</div>
+                            <div class="exp-title"><img src="elements/hawkfi.jpg" alt="Hawkfi" class="company-logo"> Growth Hacker / Community Specialist</div>
                             <div class="exp-company">Hawkfi (prev Hawksight)</div>
                             <button class="exp-details-btn" aria-expanded="false">+ details</button>
                             <div class="exp-details-content">
@@ -722,8 +730,8 @@
             // Avatar Swapping Logic
             const avatarImg = document.getElementById('avatar-img');
             if (avatarImg) {
-                const img1 = 'IMG_5188.jpg';
-                const img2 = 'image.png';
+                const img1 = 'elements/IMG_5188.jpg';
+                const img2 = 'elements/image.png';
                 
                 setInterval(() => {
                     // Start fade out
